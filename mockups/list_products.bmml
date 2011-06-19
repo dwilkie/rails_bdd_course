@@ -1,0 +1,30 @@
+<mockup version="1.0" skin="sketch" measuredW="566" measuredH="500" mockupW="522" mockupH="500">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::BrowserWindow" x="44" y="0" w="522" h="500" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>A%20Web%20Page%0Ahttp%3A//cambodianbeer.com/products</text>
+      </controlProperties>
+    </control>
+    <control controlID="1" controlTypeID="com.balsamiq.mockups::Title" x="59" y="85" w="183" h="-1" measuredW="170" measuredH="62" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Products</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::DataGrid" x="71" y="162" w="204" h="159" measuredW="114" measuredH="148" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <color>15658734</color>
+        <hasHeader>true</hasHeader>
+        <hLines>true</hLines>
+        <selectedIndex>1</selectedIndex>
+        <text>Name%2C%20Price%0AAbc%2C%20%242.99%0AAngkor%2C%20%240.99%0ACrown%2C%20%244.99%0AKlang%2C%20%245.00</text>
+        <verticalScrollbar>false</verticalScrollbar>
+        <vLines>true</vLines>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="com.balsamiq.mockups::StickyNote" x="343" y="162" w="140" h="142" measuredW="109" measuredH="123" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Cheap%20items%20%28i.e.%20%3C%20%241.00%29%20should%20be%20highlighted</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
