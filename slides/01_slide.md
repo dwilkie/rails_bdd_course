@@ -71,5 +71,51 @@
 
 !SLIDE commandline incremental
 
+## Generate product model
+
     $ rails g model product
+    invoke  active_record
+    create    db/migrate/20110620051418_create_products.rb
+    create    app/models/product.rb
+    invoke    rspec
+    create      spec/models/product_spec.rb
+
+!SLIDE
+
+## Add name and price to Migration
+
+    # db/migration/*_create_products.rb
+
+    def change
+      create_table :products do |t|
+        t.string  :name
+        t.decimal :price
+
+        t.timestamps
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Migrate the db and clone structure to test db
+
+    $ bundle exec rake db:migrate
+    $ bundle exec rake db:test:clone
+
+!SLIDE commandline incremental
+
+## Start the Spork server and run the features
+
+    $ bundle exec spork cuc
+    $ bundle exec cucumber features/
+
+!SLIDE
+
+## Add the routes
+    # config/routes.rb
+
+    Store::Application.routes.draw do
+      resources :products
+      ...
+    end
 
