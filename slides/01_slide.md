@@ -660,12 +660,8 @@
       mock_model(Product).as_null_object
     }
 
-    let(:angkor) {
-      mock_model(Product).as_null_object
-    }
-
     before do
-      assign(:products, [abc, angkor])
+      assign(:products, [abc])
       render
     end
 
@@ -873,5 +869,232 @@
 
 !SLIDE
 
-## Stub
+## Stub product name and remove debug
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    let(:abc) {
+      mock_model(
+        Product,
+        :name => "Abc",
+      ).as_null_object
+    }
+
+    it "should contain 'Abc'" do
+      rendered.should have_parent_selector(
+        :text => "Abc"
+      )
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec again
+
+    $ bundle exec rspec --drb spec/views/
+    6 examples, 0 failures
+
+!SLIDE commandline incremental
+
+## Run the features
+
+    $ bundle exec cucumber features/
+    When I go to the products page # passed!
+    Then I should see "Products" # passed!
+    And I should see "Name" # passed!
+    And I should see "Price" # passed!
+    And I should see "Abc" within "#product_1" # passed!
+    And I should see "$2.99" within "#product_1"
+      expected there to be content "$2.99" in "\nAbc\n\n"
+
+!SLIDE
+
+## Add a new example to the view spec
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    context "table data" do
+      # ...
+
+      it "should contain '$2.99'" do
+        rendered.should have_parent_selector(
+          :text => "$2.99"
+        )
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    expected xpath ".//table/tr[@id='product_1']/td" with text "$2.99" to return something
+
+!SLIDE
+
+## Add the code to make the spec pass
+
+    # app/views/products/_product.html.haml
+
+    %tr{:id => "product_#{product_counter + 1}"}
+      %td
+        = product.name
+      %td
+        = product.price
+
+!SLIDE
+
+## Stub product price
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    let(:abc) {
+      mock_model(
+        Product,
+        :name => "Abc",
+        :price => 2.99
+      ).as_null_object
+    }
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    expected xpath ".//table/tr[@id='product_1']/td" with text "$2.99" to return something
+
+!SLIDE
+
+## Something _still_ wrong
+
+### Debug
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    it "should contain '$2.99'" do
+      p rendered
+      rendered.should have_parent_selector(
+        :text => "$2.99"
+      )
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    ...<td>\n2.99\n</td>...
+    expected xpath ".//table/tr[@id='product_1']/td" with text "$2.99" to return something
+
+!SLIDE
+
+## What are we missing?
+
+### $$$
+
+!SLIDE
+
+## Fix the code using Rails' `number_to_currency` and remove debug line
+    # app/views/products/_product.html.haml
+
+    %tr{:id => "product_#{product_counter + 1}"}
+      %td
+        = product.name
+      %td
+        = number_to_currency product.price
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    it "should contain '$2.99'" do
+      rendered.should have_parent_selector(
+        :text => "$2.99"
+      )
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    7 examples, 0 failures
+
+!SLIDE commandline incremental
+
+## Run the features
+
+    $ bundle exec cucumber features/
+    When I go to the products page                # passed!
+    Then I should see "Products"                  # passed!
+    And I should see "Name"                       # passed!
+    And I should see "Price"                      # passed!
+    And I should see "Abc" within "#product_1"    # passed!
+    And I should see "$2.99" within "#product_1"  # passed!
+    And I should see "Angkor" within "#product_2" # passed!
+    And I should see "$0.99" within "#product_2"  # passed!
+
+!SLIDE commandline incremental
+
+## Everything is GREEN!
+
+### Let's manually check our work
+
+    $ rails s
+    => Booting WEBrick
+    => Rails 3.1.0.rc4 application starting in development on http://0.0.0.0:3000
+    => Call with -d to detach
+    => Ctrl-C to shutdown server
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE commandline incremental
+
+## Create some products
+
+    $ rails c
+    $ Product.create(:name => "Abc", :price => 2.99)
+    => #<Product id: 1, name: "Abc", price: ...
+    $ Product.create(:name => "Angkor", :price => 0.99)
+    => #<Product id: 2, name: "Angkor", price: ...
+    $ Product.create(:name => "Crown", :price => 4.99)
+    => #<Product id: 3, name: "Crown", price: ...
+    $ Product.create(:name => "Klang", :price => 5.00)
+    => #<Product id: 4, name: "Klang", price: ...
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE center increment
+
+## Our Mockup
+
+* ![Mockup](/images/list_products.png)
+
+!SLIDE commandline incremental
+
+## Styling
+
+### Change to SASS
+
+    $ mv app/assets/stylesheets/products.css.scss \
+    $ app/assets/stylesheets/products.css.sass
+
+!SLIDE
+
+## Add some SASS
+
+    # app/assets/stylesheets/products.css.sass
+
+    table#products
+      border-collapse: collapse
+      th, td
+        padding: 5px
+        border: 1px solid black
+      th
+        background-color: gray
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
 
