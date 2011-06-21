@@ -2,7 +2,7 @@
 
 # Introduction to BDD in Rails
 ## David Wilkie
-* ### [https://github.com/dwilkie/rails\_bdd\_course](https://github.com/dwilkie/rails_bdd_course)
+* ### [https://github.com/dwilkie/rails\_bdd\_course](http://dwilkie.github.com/rails_bdd_course)
 
 !SLIDE center
 
