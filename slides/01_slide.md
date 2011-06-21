@@ -4,28 +4,31 @@
 ## David Wilkie
 * ### [https://github.com/dwilkie/rails\_bdd\_course](https://github.com/dwilkie/rails_bdd_course)
 
-!SLIDE center incremental
+!SLIDE center
 
-## Red, Green, Refactor
+## Reference
 
-* ![Red, Green, Refactor](/images/red-green-refactor-diagram.gif)
+### [http://pragprog.com/](http://pragprog.com/)
 
-!SLIDE center incremental
+* ![Rspec Book](/images/the-rspec-book.gif)
 
-## Cucumber & RSpec
+!SLIDE
 
-* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+## What is BDD?
 
-!SLIDE center incremental
+### Behaviour Driven Development is about implementing an application by describing its behavior from the perspective of its stakeholders.
 
-# Exercise
+!SLIDE
+
+## What does it all mean?
+
+!SLIDE
+
 ## Learn by doing!
-
-* ![Mockup](/images/list_products.png)
 
 !SLIDE commandline incremental
 
-# Setup
+## Setup
 
     $ git clone git://github.com/dwilkie/rails_bdd_course.git
     $ cd rails_bdd_course/
@@ -51,17 +54,60 @@
     ...
     Your bundle is complete! It was installed into ./vendor
 
-!SLIDE incremental
+!SLIDE center
 
-# Describing features with Cucumber
+## Mockup
+
+* ![Mockup](/images/list_products.png)
+
+!SLIDE
+
+## Pop the why? stack
+
+### You should pop the why stack max 5 times (ask why recursively) until you end up with one of the following business values:
+
+* ### Protect revenue
+* ### Increase revenue
+* ### Manage cost
+* ### Increase brand value
+* ### Make the product remarkable
+* ### Provide more value to your customers
+
+!SLIDE
+
+## Why? stack
+
+* ### As a customer why would I want to see a list of products?
+* ### So that I can browse through the products on your site
+* ### Why do you want browse through the items on our site?
+* ### So that I can choose an item to buy
+
+## Increases revenue
+
+!SLIDE
+
+## Why? stack cont...
+
+* ### Why do you want to see cheap items highlighted
+* ### So I can see bargains
+* ### Why do you want to see bargains
+* ### So that I can buy them!
+
+## Increases revenue
+
+!SLIDE
+
 ## Feature Definition
 
     # features/list_products.feature
 
     Feature: List Products
-      In order to purchase the right product
+      In order to purchase a product
+               and see bargains
       As a customer
-      I want to browse products and see the price
+      I want to browse products,
+             see the price
+             and identify cheap products
 
 !SLIDE incremental
 
@@ -81,9 +127,17 @@
       And I should see "Angkor" within "#product_2"
       And I should see "$0.99" within "#product_2"
 
+!SLIDE center
+
+## BDD cycle in Rails
+
+### Work outside-in (the outside being the feature, the inside being the low level code)
+
+* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+
 !SLIDE commandline incremental
 
-## Generate product model
+## Generate a product model
 
     $ rails g model product
     invoke  active_record
@@ -358,7 +412,7 @@
 
 !SLIDE
 
-## Add another example for the 'Price Column'
+## Add another example for the 'Price' column
 
     # spec/views/products/index.html.haml
 
@@ -449,13 +503,23 @@
 
 !SLIDE
 
-## RSpec Before Block
+## RSpec's Before Block
 
     before do
       # do something here...
     end
 
     before { render }
+
+!SLIDE
+
+## RSpec's `let`
+
+### Lazy loaded instance variables
+
+### e.g. `let(:product) { Product.new }`
+
+### The block `Product.new` is only executed when `product` is called within a spec
 
 !SLIDE
 
@@ -1097,4 +1161,326 @@
 !SLIDE
 
 ## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE
+
+## Specifying CSS elements
+
+### For the designer we need to ensure that our app renders a table with `#products`
+
+### This belongs in the view spec
+
+!SLIDE
+
+## Specify `#products`
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    context "table" do
+      before do
+        parent_selector <<
+          "table[@id = 'products']"
+      end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    7 examples, 6 failures
+
+!SLIDE
+
+## Fix the code to make the specs pass
+    # app/views/products/index.html.haml
+
+    %h1
+      Products
+    %table#products
+      %tr
+
+!SLIDE commandline incremental
+
+## Run the view spec again
+
+    $ bundle exec rspec --drb spec/views/
+    7 examples, 0 failures
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE center increment
+
+## Our Mockup
+
+* ![Mockup](/images/list_products.png)
+
+!SLIDE
+
+## Add some more SASS
+
+    # app/assets/stylesheets/products.css.sass
+
+    table#products
+      // ...
+      tr.cheap
+        background-color: #00CCFF
+
+!SLIDE
+
+## Add a cheap product to the view spec
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    let(:angkor) {
+      mock_model(
+        Product,
+        :name => "Angkor",
+        :price => 0.99
+      ).as_null_object
+    }
+
+    before do
+      assign(:products, [abc, angkor])
+      render
+    end
+
+!SLIDE
+
+## Add an example for the new product
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    context "row for #product_1" do
+      # ...
+    end
+
+    context "row for #product_2" do
+      before do
+        parent_selector <<
+          "tr[@id='product_2' and @class='cheap']"
+      end
+
+      it "should be displayed" do
+        rendered.should have_parent_selector
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    expected xpath "/tr[@id='product_2' and @class='cheap']" to return something
+
+!SLIDE
+
+## Add the code to make the spec pass
+
+    # app/views/products/_product.html.haml
+
+    %tr{:id => ..., :class => "cheap"}
+      %td
+        = product.name
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    8 examples, 0 failures
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE
+
+## Modify spec to make this fail
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    context "row for #product_1" do
+      before do
+        parent_selector <<
+          "tr[@id='product_1' and not(@class)]"
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    expected xpath "tr[@id='product_1' and not(@class)]" to return something
+
+!SLIDE
+
+## Write the code in the view that we wish we had
+    # app/views/products/_product.html.haml
+
+    - row_class = product.cheap? ? |
+      {:class => "cheap"} : {}     |
+
+    %tr{{:id => "..."}.merge(row_class)}
+
+!SLIDE
+
+## We discovered that we need a method `Product#cheap?`
+
+!SLIDE
+
+## Stay focussed on the view layer
+
+    # spec/views/products/index.html.haml_spec.rb
+
+    let(:abc) {
+      mock_model(
+        # ...,
+        :price => 2.99,
+        :cheap? => false
+      ).as_null_object
+    }
+
+    let(:angkor) {
+      mock_model(
+        # ...,
+        :price => 0.99,
+        :cheap? => true
+      ).as_null_object
+    }
+
+!SLIDE commandline incremental
+
+## Run the view spec
+
+    $ bundle exec rspec --drb spec/views/
+    8 examples, 0 failures
+
+!SLIDE commandline incremental
+
+## Run the features
+
+    $ bundle exec cucumber features/
+    When I go to the products page
+      undefined method `cheap?' for #<Product>
+
+!SLIDE center incremental
+
+## Now let's go down to the model layer
+
+* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+
+!SLIDE
+
+## Add a model spec
+
+    # spec/models/product_spec.rb
+
+    require 'spec_helper'
+
+    describe Product do
+
+    end
+
+!SLIDE
+
+## And add some examples
+
+    describe "#cheap?" do
+      context "a cheap product" do
+        before { subject.price = 0.99 }
+
+        it "should return true" do
+          subject.should be_cheap
+        end
+      end
+
+      context "a not-so-cheap product" do
+        before { subject.price = 1.00 }
+
+        it "should return false" do
+          subject.should_not be_cheap
+        end
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the model spec
+
+    $ bundle exec rspec --drb spec/models/
+    undefined method `cheap?' for #<Product>
+
+!SLIDE
+
+## Write just enough code to make it pass
+
+    class Product < ActiveRecord::Base
+      def cheap?
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the model spec
+
+    $ bundle exec rspec --drb spec/models/
+    expected cheap? to return true, got nil
+
+!SLIDE
+
+## Repeat. Write just enough code to make it pass
+
+    class Product < ActiveRecord::Base
+      def cheap?
+        price < 1
+      end
+    end
+
+!SLIDE commandline incremental
+
+## Run the model spec
+
+    $ bundle exec rspec --drb spec/models/
+    2 examples, 0 failures
+
+!SLIDE commandline incremental
+
+## Run the features
+
+    $ bundle exec cucumber features/
+    When I go to the products page                # passed!
+    Then I should see "Products"                  # passed!
+    And I should see "Name"                       # passed!
+    And I should see "Price"                      # passed!
+    And I should see "Abc" within "#product_1"    # passed!
+    And I should see "$2.99" within "#product_1"  # passed!
+    And I should see "Angkor" within "#product_2" # passed!
+    And I should see "$0.99" within "#product_2"  # passed!
+
+!SLIDE
+
+## [http://localhost:3000/products](http://localhost:3000/products)
+
+!SLIDE
+
+## Done!
+
+!SLIDE commandline incremental
+
+## More Tips
+
+    $ bundle exec rspec --drb -f d spec/
+    $ bundle exec rake spec
+    $ bundle exec rake cucumber
+
+!SLIDE
+
+## More Info
+
+### [http://cukes.info](http://cukes.info)
+
+### [http://relishapp.com/rspec](http://relishapp.com/rspec)
 
