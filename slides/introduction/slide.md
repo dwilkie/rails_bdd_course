@@ -2,7 +2,7 @@
 
 # Introduction to BDD in Rails
 ## David Wilkie
-* ### [https://github.com/dwilkie/rails\_bdd\_course](https://github.com/dwilkie/rails_bdd_course)
+* ### [https://github.com/dwilkie/rails\_bdd\_course](http://dwilkie.github.com/rails_bdd_course)
 
 !SLIDE center
 
@@ -10,7 +10,7 @@
 
 ### [http://pragprog.com/](http://pragprog.com/)
 
-* ![Rspec Book](http://www.rubyinside.com/wp-content/uploads/2011/03/the-rspec-book.gif)
+* ![Rspec Book](/the-rspec-book.gif)
 
 !SLIDE
 
