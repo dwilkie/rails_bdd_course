@@ -10,7 +10,7 @@
 
 ### [http://pragprog.com/](http://pragprog.com/)
 
-* ![Rspec Book](http://www.rubyinside.com/wp-content/uploads/2011/03/the-rspec-book.gif)
+* ![Rspec Book](/the-rspec-book.gif)
 
 !SLIDE
 
