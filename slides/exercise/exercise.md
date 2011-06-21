@@ -1,64 +1,8 @@
-!SLIDE incremental
-
-# Introduction to BDD in Rails
-## David Wilkie
-* ### [https://github.com/dwilkie/rails\_bdd\_course](https://github.com/dwilkie/rails_bdd_course)
-
-!SLIDE center
-
-## Reference
-
-### [http://pragprog.com/](http://pragprog.com/)
-
-* ![Rspec Book](/images/the-rspec-book.gif)
-
-!SLIDE
-
-## What is BDD?
-
-### Behaviour Driven Development is about implementing an application by describing its behavior from the perspective of its stakeholders.
-
-!SLIDE
-
-## What does it all mean?
-
-!SLIDE
-
-## Learn by doing!
-
-!SLIDE commandline incremental
-
-## Setup
-
-    $ git clone git://github.com/dwilkie/rails_bdd_course.git
-    $ cd rails_bdd_course/
-    $ git checkout new_store
-    $ cd store/
-
-    Examining /home/dave/work/tmp/rails_bdd_course/store/.rvmrc complete.
-
-    ================================================================
-    = Trusting an .rvmrc file means that whenever you cd into the  =
-    = directory RVM will execute this .rvmrc script in your shell  =
-    =                                                              =
-    = Now that you have examined the contents of the file, do you  =
-    = wish to trust this .rvmrc from now on?                       =
-    ================================================================
-
-    (yes or no) > yes
-
-!SLIDE commandline incremental
-
-    $ bundle install --path vendor
-
-    ...
-    Your bundle is complete! It was installed into ./vendor
-
 !SLIDE center
 
 ## Mockup
 
-* ![Mockup](/images/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -133,7 +77,7 @@
 
 ### Work outside-in (the outside being the feature, the inside being the low level code)
 
-* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE commandline incremental
 
@@ -247,7 +191,7 @@
     Then I should see "Products"
       expected there to be content "Products"
 
-* ![BDD Cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+* ![BDD Cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -311,7 +255,7 @@
 
 ## We need a table with a 'Name' column
 
-* ![Mockup](/images/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -470,7 +414,7 @@
 
 ## Time to Refactor
 
-* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -751,7 +695,7 @@
 ### We have a failing Cucumber scenario but a passing view spec
 ### We need to go down to the controller layer
 
-* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -1133,7 +1077,7 @@
 
 ## Our Mockup
 
-* ![Mockup](/images/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE commandline incremental
 
@@ -1214,7 +1158,7 @@
 
 ## Our Mockup
 
-* ![Mockup](/images/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -1370,7 +1314,7 @@
 
 ## Now let's go down to the model layer
 
-* ![BDD cycle in Rails](/images/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
