@@ -42,6 +42,7 @@
 !SLIDE
 
 ## Feature Definition
+    @@@ cucumber
 
     # features/list_products.feature
 
@@ -56,6 +57,8 @@
 !SLIDE incremental
 
 ## Scenario
+
+    @@@ cucumber
 
     Scenario: List Products
       Given the following products exist
@@ -94,6 +97,8 @@
 
 ## Add name and price to Migration
 
+    @@@ ruby
+
     # db/migration/*_create_products.rb
 
     def change
@@ -124,6 +129,9 @@
 !SLIDE
 
 ## Add the routes
+
+    @@@ ruby
+
     # config/routes.rb
 
     Store::Application.routes.draw do
@@ -154,6 +162,8 @@
 !SLIDE
 
 ## Add the index action
+
+    @@@ ruby
 
     # app/controllers/products_controller.rb
 
@@ -197,6 +207,8 @@
 
 ## Let's write a view spec...
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml_spec.rb
 
     require 'spec_helper'
@@ -228,6 +240,8 @@
 !SLIDE
 
 ## Write the code to make the spec pass
+
+    @@@ ruby
 
     # app/views/products/index.html.haml
 
@@ -263,6 +277,8 @@
 
 ### Add an example for the table
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml
 
     context "table" do
@@ -283,6 +299,8 @@
 
 ## Write the code to make the spec pass
 
+    @@@ ruby
+
     # app/views/products/index.html.haml
 
     %h1
@@ -299,6 +317,8 @@
 !SLIDE
 
 ## Add another example for the header row
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml
 
@@ -326,6 +346,8 @@
 !SLIDE
 
 ## And write the code to make it pass
+
+    @@@ ruby
 
     # app/views/products/index.html.haml
 
@@ -358,6 +380,8 @@
 
 ## Add another example for the 'Price' column
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml
 
     context "header row" do
@@ -379,6 +403,8 @@
 !SLIDE
 
 ## Write the code to make it pass
+
+    @@@ ruby
 
     # app/views/products/index.html.haml
 
@@ -426,6 +452,8 @@
 
 ## Keeping it DRY
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml
     render
     rendered.should have_selector(
@@ -449,6 +477,8 @@
 
 ## RSpec's Before Block
 
+    @@@ ruby
+
     before do
       # do something here...
     end
@@ -468,6 +498,8 @@
 !SLIDE
 
 ## Helper Methods
+
+    @@@ ruby
 
     let(:parent_selector) { [] }
 
@@ -491,6 +523,8 @@
 
 ## Refactored Spec
 
+    @@@ ruby
+
     require 'spec_helper'
 
     describe "products/index.html.haml" do
@@ -506,6 +540,8 @@
       before { render }
 
 !SLIDE code
+
+    @@@ ruby
 
       context "h1" do
         before {parent_selector << "h1"}
@@ -526,6 +562,8 @@
 
 !SLIDE code
 
+    @@@ ruby
+
         context "table row" do
           before { parent_selector << "tr" }
 
@@ -539,6 +577,8 @@
             end
 
 !SLIDE code
+
+    @@@ ruby
 
             it "should display 'Price'" do
               rendered.should have_parent_selector(
@@ -569,6 +609,8 @@
 
 ## Add another example to view spec
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml
 
     context "table" do
@@ -596,6 +638,8 @@
 
 ## Add code to render the products
 
+    @@@ ruby
+
     # app/views/products/index.html.haml
     %h1
       Products
@@ -616,6 +660,8 @@
 !SLIDE
 
 ## And add the id to to the table row
+
+    @@@ ruby
 
     # app/views/products/_product.html.haml
 
@@ -661,6 +707,8 @@
 !SLIDE
 
 ## Add mocks and assign `@products` in view spec
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml
 
@@ -728,6 +776,8 @@
 
 ## Add a controller spec
 
+    @@@ ruby
+
     # spec/controllers/products_controller_spec.rb
     require 'spec_helper'
 
@@ -742,6 +792,8 @@
         end
 
 !SLIDE code
+
+    @@@ ruby
 
         it "should fetch all the products" do
           Product.should_receive(:scoped)
@@ -765,6 +817,8 @@
 !SLIDE
 
 ## Write the code to make the spec pass
+
+    @@@ ruby
 
     # app/controllers/products_controller.rb
 
@@ -795,6 +849,8 @@
 
 ## Back to the view spec
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml_spec.rb
 
     context "row for #product_1" do
@@ -822,6 +878,8 @@
 
 ## Add the code to make the spec pass
 
+    @@@ ruby
+
     # app/views/products/_product.html.haml
 
     %tr{:id => "product_#{product_counter + 1}"}
@@ -845,6 +903,8 @@
 !SLIDE
 
 ## Edit the view spec
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -873,11 +933,15 @@
 ### In our case the `Product` mock is not expecting `.name` so it returns 'Product_#&lt;RSpec...' which is what we saw from our output
 ### `mock_model` also accepts a hash of method/return values which we can use to return the product's name
 
+    @@@ ruby
+
     mock_model(Product, :name => "Abc")
 
 !SLIDE
 
 ## Stub product name and remove debug
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -918,6 +982,8 @@
 
 ## Add a new example to the view spec
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml_spec.rb
 
     context "table data" do
@@ -941,6 +1007,8 @@
 
 ## Add the code to make the spec pass
 
+    @@@ ruby
+
     # app/views/products/_product.html.haml
 
     %tr{:id => "product_#{product_counter + 1}"}
@@ -952,6 +1020,8 @@
 !SLIDE
 
 ## Stub product price
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -975,6 +1045,8 @@
 ## Something _still_ wrong
 
 ### Debug
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -1002,6 +1074,9 @@
 !SLIDE
 
 ## Fix the code using Rails' `number_to_currency` and remove debug line
+
+    @@@ ruby
+
     # app/views/products/_product.html.haml
 
     %tr{:id => "product_#{product_counter + 1}"}
@@ -1092,6 +1167,8 @@
 
 ## Add some SASS
 
+    @@@ css
+
     # app/assets/stylesheets/products.css.sass
 
     table#products
@@ -1118,6 +1195,8 @@
 
 ## Specify `#products`
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml_spec.rb
 
     context "table" do
@@ -1136,6 +1215,9 @@
 !SLIDE
 
 ## Fix the code to make the specs pass
+
+    @@@ ruby
+
     # app/views/products/index.html.haml
 
     %h1
@@ -1164,6 +1246,8 @@
 
 ## Add some more SASS
 
+    @@@ css
+
     # app/assets/stylesheets/products.css.sass
 
     table#products
@@ -1174,6 +1258,8 @@
 !SLIDE
 
 ## Add a cheap product to the view spec
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -1193,6 +1279,8 @@
 !SLIDE
 
 ## Add an example for the new product
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -1222,6 +1310,8 @@
 
 ## Add the code to make the spec pass
 
+    @@@ ruby
+
     # app/views/products/_product.html.haml
 
     %tr{:id => ..., :class => "cheap"}
@@ -1243,6 +1333,8 @@
 
 ## Modify spec to make this fail
 
+    @@@ ruby
+
     # spec/views/products/index.html.haml_spec.rb
 
     context "row for #product_1" do
@@ -1262,6 +1354,9 @@
 !SLIDE
 
 ## Write the code in the view that we wish we had
+
+    @@@ ruby
+
     # app/views/products/_product.html.haml
 
     - row_class = product.cheap? ? |
@@ -1276,6 +1371,8 @@
 !SLIDE
 
 ## Stay focussed on the view layer
+
+    @@@ ruby
 
     # spec/views/products/index.html.haml_spec.rb
 
@@ -1320,6 +1417,8 @@
 
 ## Add a model spec
 
+    @@@ ruby
+
     # spec/models/product_spec.rb
 
     require 'spec_helper'
@@ -1331,6 +1430,8 @@
 !SLIDE
 
 ## And add some examples
+
+    @@@ ruby
 
     describe "#cheap?" do
       context "a cheap product" do
@@ -1361,6 +1462,8 @@
 
 ## Write just enough code to make it pass
 
+    @@@ ruby
+
     class Product < ActiveRecord::Base
       def cheap?
       end
@@ -1376,6 +1479,8 @@
 !SLIDE
 
 ## Repeat. Write just enough code to make it pass
+
+    @@@ ruby
 
     class Product < ActiveRecord::Base
       def cheap?
