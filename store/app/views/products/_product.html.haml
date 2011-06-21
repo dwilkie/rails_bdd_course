@@ -1,0 +1,7 @@
+- row_class = product.cheap? ? {:class => "cheap"} : {}
+%tr{{:id => "product_#{product_counter + 1}"}.merge(row_class)}
+  %td
+    = product.name
+  %td
+    = number_to_currency product.price
+
