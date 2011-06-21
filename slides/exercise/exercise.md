@@ -2,7 +2,7 @@
 
 ## Mockup
 
-* ![Mockup](https://lh3.googleusercontent.com/-2eoPzIHzVO4/TgBqX7LvUSI/AAAAAAAAAGM/n7B5jmC-cbo/s800/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -80,7 +80,7 @@
 
 ### Work outside-in (the outside being the feature, the inside being the low level code)
 
-* ![BDD cycle in Rails](https://lh4.googleusercontent.com/-zE5lpwGlE6s/TgBqXzG49TI/AAAAAAAAAGI/4n2lTZj81H0/s800/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE commandline incremental
 
@@ -201,7 +201,7 @@
     Then I should see "Products"
       expected there to be content "Products"
 
-* ![BDD Cycle in Rails](https://lh4.googleusercontent.com/-zE5lpwGlE6s/TgBqXzG49TI/AAAAAAAAAGI/4n2lTZj81H0/s800/bdd_rspec_cucumber.jpg)
+* ![BDD Cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -269,7 +269,7 @@
 
 ## We need a table with a 'Name' column
 
-* ![Mockup](https://lh3.googleusercontent.com/-2eoPzIHzVO4/TgBqX7LvUSI/AAAAAAAAAGM/n7B5jmC-cbo/s800/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -440,7 +440,7 @@
 
 ## Time to Refactor
 
-* ![BDD cycle in Rails](https://lh4.googleusercontent.com/-zE5lpwGlE6s/TgBqXzG49TI/AAAAAAAAAGI/4n2lTZj81H0/s800/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -743,7 +743,7 @@
 ### We have a failing Cucumber scenario but a passing view spec
 ### We need to go down to the controller layer
 
-* ![BDD cycle in Rails](https://lh4.googleusercontent.com/-zE5lpwGlE6s/TgBqXzG49TI/AAAAAAAAAGI/4n2lTZj81H0/s800/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
@@ -1152,7 +1152,7 @@
 
 ## Our Mockup
 
-* ![Mockup](https://lh3.googleusercontent.com/-2eoPzIHzVO4/TgBqX7LvUSI/AAAAAAAAAGM/n7B5jmC-cbo/s800/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE commandline incremental
 
@@ -1240,7 +1240,7 @@
 
 ## Our Mockup
 
-* ![Mockup](https://lh3.googleusercontent.com/-2eoPzIHzVO4/TgBqX7LvUSI/AAAAAAAAAGM/n7B5jmC-cbo/s800/list_products.png)
+* ![Mockup](/list_products.png)
 
 !SLIDE
 
@@ -1411,7 +1411,7 @@
 
 ## Now let's go down to the model layer
 
-* ![BDD cycle in Rails](https://lh4.googleusercontent.com/-zE5lpwGlE6s/TgBqXzG49TI/AAAAAAAAAGI/4n2lTZj81H0/s800/bdd_rspec_cucumber.jpg)
+* ![BDD cycle in Rails](/bdd_rspec_cucumber.jpg)
 
 !SLIDE
 
