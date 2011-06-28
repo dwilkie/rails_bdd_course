@@ -86,7 +86,7 @@
 
 ## Generate a product model
 
-    $ rails g model product
+    $ bundle exec rails g model product
     invoke  active_record
     create    db/migrate/20110620051418_create_products.rb
     create    app/models/product.rb
@@ -99,7 +99,7 @@
 
     @@@ ruby
 
-    # db/migration/*_create_products.rb
+    # db/migrate/*_create_products.rb
 
     def change
       create_table :products do |t|
@@ -150,7 +150,7 @@
 
 ## Generate the products controller
 
-    $ rails g controller products
+    $ bundle exec rails g controller products
 
 !SLIDE commandline incremental
 
@@ -279,7 +279,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
 
     context "table" do
       it "should be displayed" do
@@ -320,7 +320,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
 
     context "table" do
      ...
@@ -382,7 +382,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
 
     context "header row" do
       it "should display 'Price'" do
@@ -454,7 +454,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
     render
     rendered.should have_selector(
       "h1", :text => "Products"
@@ -611,7 +611,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
 
     context "table" do
       # ...
@@ -710,7 +710,7 @@
 
     @@@ ruby
 
-    # spec/views/products/index.html.haml
+    # spec/views/products/index.html.haml_spec.rb
 
     let(:abc) {
       mock_model(Product).as_null_object
@@ -1120,7 +1120,7 @@
 
 ### Let's manually check our work
 
-    $ rails s
+    $ bundle exec rails s
     => Booting WEBrick
     => Rails 3.1.0.rc4 application starting in development on http://0.0.0.0:3000
     => Call with -d to detach
@@ -1134,7 +1134,7 @@
 
 ## Create some products
 
-    $ rails c
+    $ bundle exec rails c
     $ Product.create(:name => "Abc", :price => 2.99)
     => #<Product id: 1, name: "Abc", price: ...
     $ Product.create(:name => "Angkor", :price => 0.99)
